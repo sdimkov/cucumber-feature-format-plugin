@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class FluentFormatter
 {
 	private int blankLinesCount;
@@ -23,11 +24,24 @@ public class FluentFormatter
 	private final Map<String, Integer> blankLineRules = new HashMap<>();
 	private final Map<String, Integer> indentRules    = new HashMap<>();
 
+	/**
+	 * @param file the target file for formatting
+	 *
+	 * @throws IOException
+	 */
 	public FluentFormatter(File file) throws IOException {
 		inputPath = file.toPath();
 		input = Files.readAllLines(inputPath, Charset.defaultCharset());
 	}
 
+	/**
+	 * Set formatting rule that ensures count of blank lines before matched lines
+	 *
+	 * @param firstWord only lines starting with this word will be matched
+	 * @param lines the count of blank lines
+	 *
+	 * @return this for chaining
+	 */
 	public FluentFormatter setBlankLinesBefore(String firstWord, int lines) {
 		if (firstWord.length() == 0)
 			throw new IllegalArgumentException("firstWord can't be blank");
@@ -35,6 +49,14 @@ public class FluentFormatter
 		return this;
 	}
 
+	/**
+	 * Set formatting rule that ensures indent size for matched lines
+	 *
+	 * @param firstWord only lines starting with this word will be matched
+	 * @param indent the indentation size (in spaces)
+	 *
+	 * @return this for chaining
+	 */
 	public FluentFormatter setIndent(String firstWord, int indent) {
 		if (firstWord.length() == 0)
 			throw new IllegalArgumentException("firstWord can't be blank");
@@ -42,11 +64,15 @@ public class FluentFormatter
 		return this;
 	}
 
+	/**
+	 * Apply all formatting rules
+	 *
+	 * @return this for chaining
+	 */
 	public FluentFormatter format() {
 		output = new ArrayList<>(input.size());
 
 		for (String line : input) {
-			// Extract first word of line
 			String word = getFirstWord(line);
 
 			if (blankLineRules.containsKey(word)) {
@@ -67,21 +93,49 @@ public class FluentFormatter
 		return this;
 	}
 
+	/**
+	 * Generic print method
+	 *
+	 * @param stream the output stream
+	 *
+	 * @return this for chaining
+	 */
 	public FluentFormatter print(PrintStream stream) {
 		for (String line : output)
 			stream.println(line);
 		return this;
 	}
 
+	/**
+	 * Print to System.out
+	 *
+	 * @return this for chaining
+	 */
 	public FluentFormatter print() {
 		return print(System.out);
 	}
 
+	/**
+	 * Save formatted file to given destination
+	 *
+	 * @param filePath the destination path
+	 *
+	 * @return this for chaining
+	 *
+	 * @throws IOException
+	 */
 	public FluentFormatter saveTo(Path filePath) throws IOException {
 		Files.write(filePath, output, Charset.defaultCharset());
 		return this;
 	}
 
+	/**
+	 * Override original file with formatted
+	 *
+	 * @return this for chaining
+	 *
+	 * @throws IOException
+	 */
 	public FluentFormatter save() throws IOException {
 		return saveTo(inputPath);
 	}
