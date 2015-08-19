@@ -15,7 +15,7 @@ import java.util.Iterator;
 
 
 @Mojo(name = "format", defaultPhase = LifecyclePhase.PROCESS_SOURCES)
-public class FormatterMojo extends AbstractMojo
+public class FeatureFormatterMojo extends AbstractMojo
 {
 	private String[] featureExtensions = new String[] { "feature"};
 
