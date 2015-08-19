@@ -4,18 +4,43 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<prerequisites>
+		<maven>2.2.1</maven>
+	</prerequisites>
+
 	<groupId>sdimkov</groupId>
 	<artifactId>cucumber-feature-format-plugin</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>Cucumber Feature Formatting Maven Plugin</name>
+	<url>https://github.com/sdimkov/cucumber-feature-format-plugin</url>
+	<inceptionYear>2015</inceptionYear>
 
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/sdimkov/cucumber-feature-format-plugin/issues</url>
+	</issueManagement>
+
+	<scm>
+		<connection>scm:git:https://github.com/sdimkov/cucumber-feature-format-plugin.git</connection>
+		<developerConnection>scm:git:git@github.com:sdimkov/cucumber-feature-format-plugin.git</developerConnection>
+		<url>https://github.com/sdimkov/cucumber-feature-format-plugin</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>sdimkov</id>
+			<name>Stoyan Dimkov</name>
+			<email>stoyan.dimkov@gmail.com</email>
+		</developer>
+	</developers>
 
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
