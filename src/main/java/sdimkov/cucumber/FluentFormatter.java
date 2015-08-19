@@ -7,10 +7,7 @@ import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class FluentFormatter
@@ -43,8 +40,7 @@ public class FluentFormatter
 	 * @return this for chaining
 	 */
 	public FluentFormatter setBlankLinesBefore(String firstWord, int lines) {
-		if (firstWord.length() == 0)
-			throw new IllegalArgumentException("firstWord can't be blank");
+		validateWord(firstWord);
 		blankLineRules.put(firstWord, lines);
 		return this;
 	}
@@ -58,8 +54,7 @@ public class FluentFormatter
 	 * @return this for chaining
 	 */
 	public FluentFormatter setIndent(String firstWord, int indent) {
-		if (firstWord.length() == 0)
-			throw new IllegalArgumentException("firstWord can't be blank");
+		validateWord(firstWord);
 		indentRules.put(firstWord, indent);
 		return this;
 	}
@@ -163,5 +158,14 @@ public class FluentFormatter
 
 	private String getFirstWord(String line) {
 		return line.trim().split(" ")[0];
+	}
+
+	private void validateWord(String word) {
+		if (word == null)
+			throw new IllegalArgumentException("Word argument can't be null");
+		if (word.length() == 0)
+			throw new IllegalArgumentException("Word argument can't be zero-length string");
+		if (word.contains(" "))
+			throw new IllegalArgumentException("Word argument can't contain spaces");
 	}
 }
