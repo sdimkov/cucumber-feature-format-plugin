@@ -81,6 +81,7 @@ public class FluentFormatter
 				output.add("");
 			}
 			else {
+				blankLinesCount = 0;
 				output.add(line);
 			}
 		}

@@ -27,6 +27,9 @@ public class FeatureFormatterMojo extends AbstractMojo
 	@Parameter(property = "format.featureIndent", defaultValue = "0")
 	private int featureIndent;
 
+	@Parameter(property = "format.backgroundIndent", defaultValue = "2")
+	private int backgroundIndent;
+
 	@Parameter(property = "format.scenarioIndent", defaultValue = "2")
 	private int scenarioIndent;
 
@@ -46,6 +49,9 @@ public class FeatureFormatterMojo extends AbstractMojo
 
 	@Parameter(property = "format.featureBlankLines", defaultValue = "0")
 	private int featureBlankLines;
+
+	@Parameter(property = "format.backgroundBlankLines", defaultValue = "1")
+	private int backgroundBlankLines;
 
 	@Parameter(property = "format.scenarioBlankLines", defaultValue = "2")
 	private int scenarioBlankLines;
@@ -74,6 +80,7 @@ public class FeatureFormatterMojo extends AbstractMojo
 				getLog().debug("Processing " + featureFile.getAbsolutePath());
 				new FluentFormatter(featureFile)
 						.setBlankLinesBefore("Feature:", featureBlankLines)
+						.setBlankLinesBefore("Background:", backgroundBlankLines)
 						.setBlankLinesBefore("Scenario:", scenarioBlankLines)
 						.setBlankLinesBefore("Given", givenBlankLines)
 						.setBlankLinesBefore("When", whenBlankLines)
@@ -81,6 +88,7 @@ public class FeatureFormatterMojo extends AbstractMojo
 						.setBlankLinesBefore("And", andBlankLines)
 
 						.setIndent("Feature:", featureIndent)
+						.setIndent("Background:", backgroundIndent)
 						.setIndent("Scenario:", scenarioIndent)
 						.setIndent("Given", givenIndent)
 						.setIndent("When", whenIndent)
